@@ -30,6 +30,7 @@ The goal is simple:
 
 The suite combines local language models, vision-language models, document workflows, video-frame extraction and local image generation.
 
+https://github.com/user-attachments/assets/ef41c407-3d63-4ded-b5f6-aab5da2553f2
 ### 🎯 Project vision
 
 - 🧠 Local AI chat and coding assistance.
