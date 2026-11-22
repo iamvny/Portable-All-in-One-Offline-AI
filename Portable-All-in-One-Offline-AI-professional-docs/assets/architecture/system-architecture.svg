@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="650" viewBox="0 0 1200 650" role="img" aria-labelledby="title desc">
+<title id="title">Portable Offline AI Suite architecture</title><desc id="desc">USB drive contains launch scripts, local chat and vision server, image generation server, and FFmpeg. Documents and sampled video frames can be sent to the vision server. Browser connects to local interfaces. Optional online search requires internet.</desc>
+<defs>
+ <linearGradient id="bg" x2="1" y2="1"><stop stop-color="#0b1220"/><stop offset="1" stop-color="#151b31"/></linearGradient>
+ <linearGradient id="blue" x2="1"><stop stop-color="#0877c9"/><stop offset="1" stop-color="#22d3ee"/></linearGradient>
+ <linearGradient id="purple" x2="1"><stop stop-color="#7136c8"/><stop offset="1" stop-color="#b34ee8"/></linearGradient>
+ <linearGradient id="green" x2="1"><stop stop-color="#087f5b"/><stop offset="1" stop-color="#22c55e"/></linearGradient>
+ <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0 0 L9 3 L0 6" fill="none" stroke="#9fb4d0" stroke-width="1.5"/></marker>
+ <style>text{font-family:Inter,Segoe UI,Arial,sans-serif;fill:#edf4ff}.head{font-size:30px;font-weight:700}.sub{font-size:16px;fill:#aebed4}.label{font-size:19px;font-weight:650}.small{font-size:15px;fill:#c5d2e5}.node{stroke-width:2;rx:18}.line{stroke:#9fb4d0;stroke-width:2.5;fill:none;marker-end:url(#arrow)}</style>
+</defs>
+<rect width="1200" height="650" rx="24" fill="url(#bg)"/>
+<text x="600" y="58" text-anchor="middle" class="head">Portable All-in-One Offline AI Suite</text>
+<text x="600" y="88" text-anchor="middle" class="sub">High-level system architecture • Windows USB deployment concept</text>
+<rect x="45" y="135" width="245" height="150" class="node" fill="#102b48" stroke="#269de8"/>
+<text x="167" y="175" text-anchor="middle" class="label">USB drive / MyAI</text><text x="167" y="210" text-anchor="middle" class="small">Launch scripts</text><text x="167" y="237" text-anchor="middle" class="small">Model files + binaries</text><text x="167" y="264" text-anchor="middle" class="small">Configuration &amp; docs</text>
+<rect x="360" y="135" width="245" height="150" class="node" fill="#211b45" stroke="#a855f7"/>
+<text x="482" y="175" text-anchor="middle" class="label">Local AI services</text><text x="482" y="210" text-anchor="middle" class="small">Chat + vision server</text><text x="482" y="237" text-anchor="middle" class="small">Image-generation server</text><text x="482" y="264" text-anchor="middle" class="small">Local inference</text>
+<rect x="675" y="135" width="225" height="150" class="node" fill="#103b35" stroke="#22c55e"/>
+<text x="787" y="175" text-anchor="middle" class="label">Browser interfaces</text><text x="787" y="210" text-anchor="middle" class="small">127.0.0.1:8080</text><text x="787" y="237" text-anchor="middle" class="small">127.0.0.1:1234</text><text x="787" y="264" text-anchor="middle" class="small">Same computer</text>
+<path d="M290 210 H350" class="line"/><path d="M605 210 H665" class="line"/>
+<rect x="45" y="390" width="245" height="145" class="node" fill="#3b2b18" stroke="#f59e0b"/>
+<text x="167" y="430" text-anchor="middle" class="label">Input files</text><text x="167" y="466" text-anchor="middle" class="small">Documents / images</text><text x="167" y="493" text-anchor="middle" class="small">MP4 video</text>
+<rect x="360" y="390" width="245" height="145" class="node" fill="#12334b" stroke="#38bdf8"/>
+<text x="482" y="430" text-anchor="middle" class="label">FFmpeg helper</text><text x="482" y="466" text-anchor="middle" class="small">Samples video frames</text><text x="482" y="493" text-anchor="middle" class="small">JPEG output folder</text>
+<path d="M290 462 H350" class="line"/><path d="M482 390 V315 H482 V295" class="line"/>
+<path d="M290 450 H325 V305 H482" fill="none" stroke="#9fb4d0" stroke-width="2" stroke-dasharray="7 7"/>
+<rect x="675" y="390" width="225" height="145" class="node" fill="#3b1d32" stroke="#ec4899"/>
+<text x="787" y="430" text-anchor="middle" class="label">Optional web search</text><text x="787" y="466" text-anchor="middle" class="small">Internet required</text><text x="787" y="493" text-anchor="middle" class="small">Not part of offline mode</text>
+<path d="M675 462 H620 V285" fill="none" stroke="#ec8dbd" stroke-width="2" stroke-dasharray="7 7" marker-end="url(#arrow)"/>
+<text x="600" y="590" text-anchor="middle" class="sub">Actual capabilities depend on compatible model, backend, frontend, drivers and tested configuration.</text>
+</svg>
