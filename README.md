@@ -1,186 +1,448 @@
-# Portable All-in-One Offline AI Pendrive Suite
+# 🚀 Portable All-in-One Offline AI Pendrive Suite
 
-[![Platform](https://img.shields.io/badge/platform-Windows%2010%2F11-blue)](#requirements)
-[![Mode](https://img.shields.io/badge/AI-local%20%26%20offline-success)](#privacy-and-network-use)
-[![Status](https://img.shields.io/badge/status-experimental-orange)](#project-status)
-[![License](https://img.shields.io/badge/license-MIT-green)](LICENSE)
+<div align="center">
 
-A portable Windows AI workstation designed to keep local AI applications, model files, and launch scripts together on a USB drive.
+<!-- Replace with your uploaded GitHub banner -->
+<img src="assets/github-banner.png" alt="Portable Offline AI Suite Banner" width="100%">
 
-The planned suite combines local text and vision inference, document workflows, video-frame extraction, and local image generation. Optional online search is a separate feature and requires an internet connection and a compatible search integration.
+### 🧠 Your Personal AI Workstation — Anywhere, Anytime!
 
-> **Project status:** This repository documents an experimental setup. Hardware compatibility, model support, file uploads, GPU acceleration, and true zero-install behavior must be tested on each target Windows computer before being described as guaranteed.
+**Plug in. Launch. Create. No cloud dependency for local inference.**
 
-## Contents
+![Platform](https://img.shields.io/badge/Platform-Windows%2010%2F11-blue?style=for-the-badge&logo=windows)
+![AI](https://img.shields.io/badge/AI-Local%20%26%20Offline-success?style=for-the-badge)
+![Status](https://img.shields.io/badge/Status-Experimental-orange?style=for-the-badge)
+![License](https://img.shields.io/badge/License-MIT-green?style=for-the-badge)
 
-- [Features](#features)
-- [Architecture](#architecture)
-- [Requirements](#requirements)
-- [USB drive layout](#usb-drive-layout)
-- [Setup overview](#setup-overview)
-- [Launch and usage](#launch-and-usage)
-- [Privacy and network use](#privacy-and-network-use)
-- [Performance notes](#performance-notes)
-- [Troubleshooting](#troubleshooting)
-- [Roadmap](#roadmap)
-- [Contributing](#contributing)
-- [License and third-party components](#license-and-third-party-components)
+[✨ Features](#-features) • [⚙️ Installation](#️-installation) • [🏗️ Architecture](#️-system-architecture) • [📁 Structure](#-project-structure) • [🛡️ Privacy](#-privacy--security)
 
-## Features
+</div>
 
-| Capability | Intended implementation | Notes |
+---
+
+## 🌟 1. Project Overview
+
+**Portable All-in-One Offline AI Pendrive Suite** is an experimental portable Windows AI workstation that brings multiple local AI capabilities together inside one USB drive.
+
+The goal is simple:
+
+> Carry your own AI workstation in your pocket. Plug it into a compatible Windows computer and run local AI tools without depending on cloud AI services.
+
+The suite combines local language models, vision-language models, document workflows, video-frame extraction and local image generation.
+
+### 🎯 Project vision
+
+- 🧠 Local AI chat and coding assistance.
+- 👁️ Image understanding and visual analysis.
+- 📄 Document analysis and question answering.
+- 🎬 Video frame extraction and AI review.
+- 🎨 Local AI image generation.
+- 🔒 Local-first data processing.
+- 🌐 Optional online search when internet access is available.
+
+**Important:** This is an experimental portable setup, not a guaranteed zero-install solution. Hardware, drivers, dependencies and application compatibility must be tested on each computer.
+
+---
+
+## ✨ 2. Features
+
+| Feature | Technology | Purpose |
 |---|---|---|
-| Local chat and coding help | Llamafile + a compatible GGUF model | Runs on the host computer |
-| Image understanding | Vision-language model + matching projector | Requires a compatible multimodal build and interface |
-| Document Q&A | Local chat interface and document-processing support | Actual PDF/CSV/code support depends on the interface |
-| Video review | FFmpeg frame extraction + vision model | Frame-based analysis, not continuous video understanding |
-| Local image generation | Stable Diffusion.cpp + compatible checkpoint | CPU/GPU support depends on the build and drivers |
-| Optional web search | External search integration | Requires internet; not an offline feature |
+| 🧠 AI Chat | Llamafile + GGUF | Local conversations |
+| 💻 Coding Assistant | Compatible language model | Programming help |
+| 👁️ Vision AI | Qwen2.5-VL | Image understanding |
+| 📚 Document AI | Local interface | Document Q&A |
+| 🎬 Video Analysis | FFmpeg + Vision AI | Frame-based video review |
+| 🎨 Image Generation | Stable Diffusion.cpp | Generate images locally |
+| 🌐 Web Search | Optional integration | Online information retrieval |
+| 🔐 Privacy | Local inference | Keep processing on host computer |
 
-## Architecture
+### 🧠 Local AI Chat
+
+Run compatible GGUF language models through Llamafile.
+
+Possible applications:
+- General conversations.
+- Programming assistance.
+- Text generation.
+- Explanations and learning.
+- Brainstorming.
+
+### 👁️ Vision Intelligence
+
+Use a compatible vision-language model with its matching projector file.
+
+Planned model:
+- Qwen2.5-VL-3B-Instruct.
+- Compatible GGUF model.
+- Matching multimodal projector.
+
+Capabilities depend on the selected model and frontend.
+
+### 📄 Document Intelligence
+
+The planned document workflow aims to support:
+
+- PDF analysis.
+- CSV data review.
+- Text documents.
+- Code explanation.
+- Image-based questions.
+
+Actual upload and parsing support depends on the selected interface and its integrations.
+
+### 🎬 AI Video Review
+
+Convert video into individual frames using FFmpeg.
+
+**Workflow:**
+
+MP4 Video → FFmpeg → JPG Frames → Vision AI → Analysis
+
+The system performs frame-based analysis, not continuous real-time video understanding.
+
+### 🎨 Local Image Generation
+
+Use Stable Diffusion.cpp with a compatible checkpoint to generate images locally.
+
+Planned checkpoint:
+
+`v1-5-pruned-emaonly-fp16.safetensors`
+
+GPU acceleration depends on the installed backend, drivers and hardware.
+
+### 🌐 Optional Web Search
+
+Online search is an optional feature.
+
+- Requires internet connectivity.
+- Requires a compatible search integration.
+- May transmit search queries to an external provider.
+- Is not part of offline inference.
+
+---
+
+## 🏗️ 3. System Architecture
+
+The following diagram illustrates the planned system.
 
 ```mermaid
 flowchart TD
-    USB["USB drive: MyAI folder"]
-    USB --> LAUNCH["Windows launch scripts"]
-    LAUNCH --> CHAT["Local chat / vision server"]
-    LAUNCH --> IMAGE["Local image-generation server"]
-    VIDEO["MP4 video"] --> FFMPEG["FFmpeg frame extraction"]
-    FFMPEG --> FRAMES["JPG frames"]
-    FRAMES --> CHAT
-    DOCS["Supported documents / images"] --> CHAT
-    CHAT --> BROWSER["Local browser interface"]
-    IMAGE --> BROWSER2["Local image-generation interface"]
-    WEB["Optional online search bridge"] -. "Internet required" .-> CHAT
+    A["🔌 USB Drive - MyAI"] --> B["Windows Launch Scripts"]
+
+    B --> C["Local AI Chat Server"]
+    B --> D["Image Generation Server"]
+
+    C --> E["Local Browser Interface"]
+    D --> F["Image Generation Interface"]
+
+    G["📄 Documents / Images"] --> C
+
+    H["🎬 MP4 Video"] --> I["FFmpeg"]
+    I --> J["JPG Frames"]
+    J --> C
+
+    K["Optional Web Search"] -. "Internet Required" .-> C
+
+    style A fill:#2563eb,color:#fff
+    style C fill:#087f5b,color:#fff
+    style D fill:#7c3aed,color:#fff
+    style E fill:#0891b2,color:#fff
 ```
 
-## Requirements
+### 🔄 How it works
 
-### Host computer
+1. Connect the USB drive.
+2. Open the `MyAI` folder.
+3. Execute the appropriate Windows launcher.
+4. Start the local AI services.
+5. Open the local browser interface.
+6. Select the required AI capability.
+7. Process supported files locally.
+
+---
+
+## 📁 4. Project Structure
+
+The proposed repository organization:
+
+```text
+Portable-Offline-AI/
+│
+├── README.md
+├── LICENSE
+├── .gitignore
+│
+├── assets/
+│   ├── github-banner.png
+│   ├── ai-suite-banner.gif
+│   ├── architecture.png
+│   ├── screenshots/
+│   └── demos/
+│
+├── MyAI/
+│   ├── START_ALL.bat
+│   ├── START_CHAT_ONLY.bat
+│   ├── start-server.bat
+│   ├── start-server.sh
+│   │
+│   ├── video_to_frames.bat
+│   │
+│   ├── llamafile-0.10.6.exe
+│   │
+│   ├── Qwen2.5-VL-3B-Instruct-Q4_K_M.gguf
+│   ├── mmproj-Qwen2.5-VL-3B-Instruct-f16.gguf
+│   │
+│   ├── sd-server.exe
+│   ├── v1-5-pruned-emaonly-fp16.safetensors
+│   │
+│   ├── ffmpeg.exe
+│   ├── runtime/
+│   └── video_frames/
+│
+├── docs/
+│   ├── INSTALLATION.md
+│   ├── USAGE.md
+│   └── TROUBLESHOOTING.md
+│
+└── examples/
+    ├── sample-prompts.md
+    └── video-workflow.md
+```
+
+**Note:** This is an organized target structure. Some folders are proposed additions. Large model files and third-party binaries should generally be downloaded separately rather than committed to Git.
+
+---
+
+## 💻 5. System Requirements
 
 | Component | Minimum target | Recommended target |
 |---|---|---|
-| Operating system | Windows 10/11, 64-bit | Updated Windows 11, 64-bit |
+| OS | Windows 10/11 64-bit | Updated Windows 11 |
 | RAM | 8 GB | 16 GB or more |
-| Processor | Modern 64-bit Intel/AMD CPU | Recent multi-core CPU |
-| GPU | Optional | Compatible GPU and supported backend |
-| USB connection | USB 3.0 | USB 3.1 / USB-C |
+| CPU | Modern 64-bit Intel/AMD | Recent multi-core CPU |
+| GPU | Optional | Compatible GPU |
+| USB | USB 3.0 | USB 3.1 / USB-C |
+| Storage | 16 GB starting point | 32 GB or more |
 
-These are planning targets, not guaranteed compatibility specifications. Running multiple models at once can require substantially more memory.
+Actual storage requirements depend on model sizes and the number of applications installed.
 
-### USB drive
+---
 
-- 16 GB minimum is a starting point; 32 GB or larger is recommended.
-- Use exFAT or NTFS. FAT32 cannot store a single file larger than 4 GB.
-- A fast USB 3.x drive is recommended because model loading can be storage-intensive.
-- Keep enough free space for model weights, application files, and temporary video frames.
+## ⚙️ 6. Installation
 
-## USB drive layout
+### Step 1 — Prepare your USB drive
 
-The launcher scripts supplied in this repository currently expect the executables and model files to be alongside the scripts in the same `MyAI` folder. Keep that layout unless you also update the paths inside the scripts.
+1. Connect your USB drive.
+2. Format it using exFAT or NTFS.
+3. Create a folder named `MyAI`.
+4. Keep enough free space for models and temporary files.
 
-```text
-MyAI/
-├── START_ALL.bat
-├── START_CHAT_ONLY.bat
-├── start-server.bat
-├── start-server.sh
-├── video_to_frames.bat
-├── llamafile-0.10.6.exe                 # download separately
-├── Qwen2.5-VL-3B-Instruct-Q4_K_M.gguf  # download separately
-├── mmproj-Qwen2.5-VL-3B-Instruct-f16.gguf # download separately
-├── sd-server.exe                        # download separately
-├── required runtime DLL files            # download separately
-├── v1-5-pruned-emaonly-fp16.safetensors  # download separately
-├── ffmpeg.exe                            # download separately
-└── video_frames/                         # generated at runtime
+### Step 2 — Download applications
+
+Download the required software from its official project release page.
+
+- Llamafile.
+- FFmpeg.
+- Stable Diffusion.cpp.
+- Required runtime dependencies.
+
+### Step 3 — Download AI models
+
+Download compatible model files and check their licenses.
+
+- Qwen2.5-VL GGUF.
+- Matching vision projector.
+- Stable Diffusion checkpoint.
+
+### Step 4 — Organize files
+
+Place the downloaded applications and models in the expected locations.
+
+Check every filename against the launcher scripts.
+
+### Step 5 — Review launch scripts
+
+Before execution, inspect the `.bat` files and verify:
+
+- Executable paths.
+- Model paths.
+- Required DLL files.
+- Port availability.
+- Backend configuration.
+
+### Step 6 — Start the AI suite
+
+Run:
+
+`START_ALL.bat`
+
+Keep the terminal windows open while the services are running.
+
+---
+
+## 🚀 7. Launch and Usage
+
+### Start all services
+
+```bat
+START_ALL.bat
 ```
-
-Model and executable filenames may change between releases. Confirm that the actual filenames match the names referenced by your batch files.
-
-## Setup overview
-
-1. Format the USB drive as exFAT or NTFS if needed.
-2. Create a folder named `MyAI` on the USB drive.
-3. Download the required applications from their official project release pages.
-4. Download model files from their official model repositories and review their licenses.
-5. Put the binaries, dependencies, and model files in the expected folder.
-6. Review each `.bat` file before running it.
-7. Test each service separately before using the combined launcher.
-
-See [Installation](docs/INSTALLATION.md) for the detailed checklist and source links.
-
-## Launch and usage
-
-### Start both local services
-
-Double-click `START_ALL.bat`. Keep the terminal windows open while using the services.
-
-- Chat / vision interface: `http://127.0.0.1:8080`
-- Image-generation interface: `http://127.0.0.1:1234`
-
-These addresses are loopback addresses and are intended to be accessed from the same computer.
 
 ### Start chat only
 
-Use `START_CHAT_ONLY.bat` when you do not need image generation. This may reduce memory pressure, but actual memory use depends on the model, context length, and backend.
+```bat
+START_CHAT_ONLY.bat
+```
 
-### Extract video frames
+### Local interfaces
 
-Drag an MP4 file onto `video_to_frames.bat`. The script is intended to extract one JPEG frame every five seconds into `video_frames`. Review the generated frames before uploading them to the vision interface.
+| Service | Address |
+|---|---|
+| 🧠 Chat / Vision | http://127.0.0.1:8080 |
+| 🎨 Image Generation | http://127.0.0.1:1234 |
 
-More details: [Usage guide](docs/USAGE.md).
+These are intended for access from the same computer.
 
-## Privacy and network use
+### 🎬 Video-to-Frames Workflow
+
+Drag an MP4 file onto:
+
+`video_to_frames.bat`
+
+The intended extraction interval is one frame every five seconds.
+
+Generated frames are stored in:
+
+`video_frames/`
+
+Review the extracted frames before submitting them to the vision interface.
+
+---
+
+## 🔐 8. Privacy & Security
+
+Privacy is one of the main design goals.
 
 - Local model inference is intended to run on the host computer.
-- Localhost web interfaces are not the same as public cloud services.
-- Optional web search requires internet access and may send search queries to the selected search provider.
-- Do not assume every frontend feature is offline or private; check its configuration and network behavior.
-- Do not expose the local server ports to a public network unless you understand and secure that setup.
-- Avoid placing personal documents or confidential files in public repositories or issue reports.
+- Localhost interfaces are intended for local access.
+- Offline inference does not require cloud AI access.
+- Optional web search requires internet connectivity.
+- External integrations may transmit queries or data.
+- Do not expose local server ports publicly without appropriate security.
+- Do not assume every frontend feature works offline.
 
-## Performance notes
+**Privacy warning:** Verify application network behavior and configuration before using confidential documents.
 
-- GPU acceleration is backend-, driver-, and hardware-dependent. A flag such as `-ngl 99` does not guarantee acceleration on every NVIDIA, AMD, or Intel system.
-- CPU-only operation may be slower.
-- Running chat and image generation simultaneously can exceed available RAM.
-- Smaller or more heavily quantized models can reduce memory use, often with a quality trade-off.
-- USB speed affects model loading and file operations.
+---
 
-## Troubleshooting
+## ⚡ 9. Performance Optimization
 
-| Symptom | Checks |
+For better performance:
+
+- Use a fast USB 3.x drive.
+- Prefer smaller or quantized models when memory is limited.
+- Close unnecessary applications.
+- Avoid running multiple large models simultaneously.
+- Use supported GPU backends where available.
+- Reduce context size if memory is insufficient.
+
+A GPU command-line flag alone does not guarantee hardware acceleration.
+
+---
+
+## 🛠️ 10. Troubleshooting
+
+| Problem | Possible solution |
 |---|---|
-| `.gguf` file opens in another app | Check the command line and model path in the launcher; verify the executable is being called |
-| Missing DLL error | Confirm all DLL dependencies from the same release archive are present; check required runtime libraries |
-| Port already in use | Check whether another process is using port 8080 or 1234 |
-| Server exits immediately | Run the command in a terminal and read the full error message |
-| Model not found | Compare the exact filename and folder location with the launcher command |
-| Slow generation | Try CPU/GPU backend settings supported by the specific build; reduce model/context size |
-| Video frames are missing | Confirm FFmpeg runs and the input file is a supported MP4 |
+| Model not found | Verify exact model filename and path |
+| Missing DLL | Check dependencies and runtime libraries |
+| Port already in use | Check ports 8080 and 1234 |
+| Server closes immediately | Run from CMD and inspect errors |
+| Slow generation | Reduce model size or context |
+| GPU not working | Verify backend and drivers |
+| Video frames missing | Verify FFmpeg and input file |
+| Out of memory | Close other applications or use a smaller model |
 
-See [Troubleshooting](docs/TROUBLESHOOTING.md).
+See `docs/TROUBLESHOOTING.md` for detailed troubleshooting.
 
-## Roadmap
+---
 
-- [ ] Verify and document exact tested release versions and checksums
-- [ ] Test on a clean Windows 10 computer
-- [ ] Test on a clean Windows 11 computer
-- [ ] Validate CPU-only startup
-- [ ] Validate supported GPU backends
-- [ ] Confirm PDF, CSV, image, and code upload workflows
-- [ ] Add screenshots of the actual running interfaces
-- [ ] Add startup checks for missing files and occupied ports
-- [ ] Add a clean shutdown script
-- [ ] Document optional online search configuration
+## 🗺️ 11. Development Roadmap
 
-## Contributing
+- [ ] Complete portable Windows folder structure.
+- [ ] Verify application versions and checksums.
+- [ ] Test Windows 10 compatibility.
+- [ ] Test Windows 11 compatibility.
+- [ ] Verify CPU-only operation.
+- [ ] Test supported GPU backends.
+- [ ] Validate vision model and projector compatibility.
+- [ ] Test PDF, CSV and image workflows.
+- [ ] Improve video frame extraction.
+- [ ] Add automated startup checks.
+- [ ] Add clean shutdown functionality.
+- [ ] Create animated demonstration GIFs.
+- [ ] Add actual application screenshots.
+- [ ] Document optional web search configuration.
+- [ ] Verify offline operation on a clean computer.
 
-Bug reports, documentation improvements, and tested compatibility notes are welcome. Please include Windows version, hardware details, application release versions, and the exact error message. Do not include private documents, access tokens, or personal data.
+---
 
-## License and third-party components
+## 🤝 12. Contributing
 
-The original scripts and documentation in this repository are intended to be released under the MIT License; see [LICENSE](LICENSE).
+Contributions are welcome!
 
-Llamafile, model weights, Stable Diffusion.cpp, FFmpeg, and other third-party components retain their own licenses and terms. The MIT license for this repository does not grant rights to third-party software or model weights. Review each component's license before downloading or redistributing it.
+You can help by:
+
+- Reporting bugs.
+- Improving documentation.
+- Testing Windows compatibility.
+- Suggesting optimizations.
+- Sharing verified configurations.
+- Improving launcher scripts.
+
+When reporting an issue, include:
+
+- Windows version.
+- CPU and RAM.
+- GPU model, if applicable.
+- Application versions.
+- Exact error message.
+
+Never share private documents, passwords or access tokens.
+
+---
+
+## 📜 13. License
+
+The original scripts and documentation are intended to use the MIT License.
+
+Third-party applications, model weights, checkpoints and dependencies have their own licenses and distribution terms.
+
+Always review individual licenses before downloading or redistributing them.
+
+See [LICENSE](LICENSE).
+
+---
+
+## ⭐ 14. Support the Project
+
+If you find this project useful:
+
+- ⭐ Star this repository.
+- 🍴 Fork the project.
+- 🐛 Report bugs.
+- 💡 Suggest new features.
+- 🤝 Contribute improvements.
+
+Every contribution helps make portable local AI more accessible!
+
+<div align="center">
+
+### 🚀 Your AI. Your USB. Your Control.
+
+**Built for experimentation, portability and privacy.**
+
+🧠 Think • 💻 Create • 🎨 Generate • 🔒 Stay Local
+
+</div>
