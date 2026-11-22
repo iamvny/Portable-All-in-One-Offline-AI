@@ -1,0 +1,7 @@
+*.gguf
+*.safetensors
+*.exe
+*.dll
+*.zip
+*.7z
+video_frames/
