@@ -3,7 +3,7 @@
 <div align="center">
 
 <!-- Replace with your uploaded GitHub banner -->
-<img src="assets/github-banner.png" alt="Portable Offline AI Suite Banner" width="100%">
+<img src="assets/screenshots" alt="Portable Offline AI Suite Banner" width="100%">
 
 ### 🧠 Your Personal AI Workstation — Anywhere, Anytime!
 
